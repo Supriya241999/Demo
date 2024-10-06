@@ -1,15 +1,10 @@
 ###########################################
 # BASE IMAGE
 ###########################################
+FROM ubuntu:latest
 
-FROM ubuntu AS build
+RUN apt-get -q update ; apt-get -yq install python3 python3-pip
 
-RUN apt-get update && apt-get install -y golang-go
+EXPOSE 8080
 
-ENV GO111MODULE=off
-
-COPY . .
-
-RUN CGO_ENABLED=0 go build -o /app .
-
-ENTRYPOINT ["/app"]
+ADD . /
